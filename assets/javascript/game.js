@@ -82,10 +82,6 @@ document.onkeyup = function (event) { // on key release event occurs
   console.log(letterGuessed);
   let correctLetter = false; // flag for "if" statement to run/not run
 
-// if (event === letterGuessed){
-
-// }
-
   for (let i = 0; i < numBlanks; i++) {
     if (letterGuessed === chosenWord[i]) {
         correctLetter = true;
