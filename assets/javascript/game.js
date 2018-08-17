@@ -77,58 +77,58 @@ function endGame(){
 }
 
 document.onkeyup = function (event) { // on key release event occurs
-    
+
 //logic(if statement) to determine a-z accepted event.key that wrapts whole keyup function
+        // if((event.key) >= 65 && (event.key) <= 90 ) {
+        //     alert("keycode:", event.key);        
+        let letterGuessed = event.key.toLocaleLowerCase(); // toLocale for foreign languages!
+        console.log('letterGuessed (start):',letterGuessed);
+        let correctLetter = false; // flag for "if" statement to run/not run
 
-    let letterGuessed = event.key.toLocaleLowerCase(); // toLocale for foreign languages!
-  console.log('letterGuessed (start):',letterGuessed);
-  let correctLetter = false; // flag for "if" statement to run/not run
+        for (let i = 0; i < numBlanks; i++) {
+            if (letterGuessed === chosenWord[i]) {
+                correctLetter = true;
+            }
+        }
 
-  for (let i = 0; i < numBlanks; i++) {
-    if (letterGuessed === chosenWord[i]) {
-        correctLetter = true;
-      }
-  }
+        if (correctLetter) {
+            for (let j = 0; j < numBlanks; j++) {
+                if (chosenWord[j] === letterGuessed) {
+                    blanksAndSuccesses[j] = letterGuessed;
+                    document.querySelector("#word-blanks").innerHTML = blanksAndSuccesses.join(" ");
+                    }
+                }
 
-  if (correctLetter) {
-      for (let j = 0; j < numBlanks; j++) {
-          if (chosenWord[j] === letterGuessed) {
-              blanksAndSuccesses[j] = letterGuessed;
-              document.querySelector("#word-blanks").innerHTML = blanksAndSuccesses.join(" ");
-             }
-         }
+                completeWord = letterInChosenWord.toString();
+                console.log("complete word ", completeWord); 
+                console.log("blanksAndSuccesses", blanksAndSuccesses);
+                console.log("letters in chosen word", letterInChosenWord);
 
-         completeWord = letterInChosenWord.toString();
-         console.log("complete word ", completeWord); 
-         console.log("blanksAndSuccesses", blanksAndSuccesses);
-         console.log("letters in chosen word", letterInChosenWord);
+                if (completeWord === blanksAndSuccesses.toString()){ //check with "typeof" and convert array to string
+                    winCounter = winCounter + 1;
+                    document.querySelector(".wins").innerHTML = winCounter;
+                    endGame();
+                }     
+            console.log(blanksAndSuccesses);
 
-         if (completeWord === blanksAndSuccesses.toString()){ //check with "typeof" and convert array to string
-            winCounter = winCounter + 1;
-            document.querySelector(".wins").innerHTML = winCounter;
+        } else {
+            console.log("index of wrong guess", wrongGuesses.indexOf(wrongGuesses))
+            // if wrong guesses does NOT include the key we pressed
+            if (!wrongGuesses.includes(event.key)) {
+                    console.log('wrong guess is:', letterGuessed)
+                    wrongGuesses.push(letterGuessed)
+                    console.log("wrong guess: ", wrongGuesses);
+                    document.querySelector(".wrongGuesses").innerHTML = wrongGuesses.join(", ");
+                    numGuesses = numGuesses - 1;
+                    document.querySelector(".GuessesLeft").innerHTML = numGuesses;
+                    console.log(numGuesses);
+            }
+
+        } 
+            
+
+        if (numGuesses === 0) {
+            lossCounter = lossCounter + 1;
+            document.querySelector(".losses").innerHTML = lossCounter;
             endGame();
-         }     
-      console.log(blanksAndSuccesses);
-
-  } else {
-    console.log("index of wrong guess", wrongGuesses.indexOf(wrongGuesses))
-    // if wrong guesses does NOT include the key we pressed
-    if (!wrongGuesses.includes(event.key)) {
-            console.log('wrong guess is:', letterGuessed)
-            wrongGuesses.push(letterGuessed)
-            console.log("wrong guess: ", wrongGuesses);
-            document.querySelector(".wrongGuesses").innerHTML = wrongGuesses.join(", ");
-            numGuesses = numGuesses - 1;
-            document.querySelector(".GuessesLeft").innerHTML = numGuesses;
-            console.log(numGuesses);
-    }
-
-  } 
-    
-
-  if (numGuesses === 0) {
-    lossCounter = lossCounter + 1;
-    document.querySelector(".losses").innerHTML = lossCounter;
-    endGame();
-  }
-}
+    }}
