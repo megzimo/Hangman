@@ -3,6 +3,7 @@ body{
     background-image: url(../images/futurama.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: 125%;
     background-position: center; 
     z-index: 0;
 }
@@ -62,10 +63,11 @@ footer{
 
 img{
 display: block;
-position: absolute;
+position: relative;
+bottom: 0;
 z-index: 1000;
 width: 150px;
-height: 111px;
+height: auto;
 left: 10px;
 top: 10px;
 overflow: hidden;

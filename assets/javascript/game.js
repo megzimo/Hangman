@@ -77,9 +77,11 @@ function endGame(){
 }
 
 document.onkeyup = function (event) { // on key release event occurs
-  let letterGuessed = String.fromCharCode(event.which).toLocaleLowerCase(); // letterGuessed set equal to a string fromCharCode(event.wich)
+    
+//logic(if statement) to determine a-z accepted event.key that wrapts whole keyup function
 
-  console.log(letterGuessed);
+    let letterGuessed = event.key.toLocaleLowerCase(); // toLocale for foreign languages!
+  console.log('letterGuessed (start):',letterGuessed);
   let correctLetter = false; // flag for "if" statement to run/not run
 
   for (let i = 0; i < numBlanks; i++) {
@@ -107,17 +109,26 @@ document.onkeyup = function (event) { // on key release event occurs
             endGame();
          }     
       console.log(blanksAndSuccesses);
+
   } else {
-        wrongGuesses.push(letterGuessed)
-        console.log("wrong guess: ", wrongGuesses);
-        document.querySelector(".wrongGuesses").innerHTML = wrongGuesses.join(", ");
-        numGuesses = numGuesses - 1;
-        document.querySelector(".GuessesLeft").innerHTML = numGuesses;
-        console.log(numGuesses);
+    console.log("index of wrong guess", wrongGuesses.indexOf(wrongGuesses))
+    // if wrong guesses does NOT include the key we pressed
+    if (!wrongGuesses.includes(event.key)) {
+            console.log('wrong guess is:', letterGuessed)
+            wrongGuesses.push(letterGuessed)
+            console.log("wrong guess: ", wrongGuesses);
+            document.querySelector(".wrongGuesses").innerHTML = wrongGuesses.join(", ");
+            numGuesses = numGuesses - 1;
+            document.querySelector(".GuessesLeft").innerHTML = numGuesses;
+            console.log(numGuesses);
     }
-    if (numGuesses === 0) {
-        lossCounter = lossCounter + 1;
-        document.querySelector(".losses").innerHTML = lossCounter;
-        endGame();
-    }
+
+  } 
+    
+
+  if (numGuesses === 0) {
+    lossCounter = lossCounter + 1;
+    document.querySelector(".losses").innerHTML = lossCounter;
+    endGame();
+  }
 }
