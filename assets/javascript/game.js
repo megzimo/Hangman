@@ -78,13 +78,12 @@ function endGame(){
 
 document.onkeyup = function (event) { // on key release event occurs
 
-//logic(if statement) to determine a-z accepted event.key that wrapts whole keyup function
         let letterGuessed = event.key.toLocaleLowerCase(); // toLocale for foreign languages!
         console.log('letterGuessed (start):',letterGuessed);
 
         let correctLetter = false; // flag for "if" statement to run/not run
 
-            if((event.keyCode) >= 65 && (event.keyCode) <= 90 ) {
+            if((event.keyCode) >= 65 && (event.keyCode) <= 90 ) {   //logic to determine a-z accepted event.key
                 for (let i = 0; i < numBlanks; i++) {
                     if (letterGuessed === chosenWord[i]) {
                         correctLetter = true;
